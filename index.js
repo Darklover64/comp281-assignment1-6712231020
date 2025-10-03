@@ -62,12 +62,34 @@ function main(ev) {
 
 		//  บ้าน 
 		ctx.beginPath();
-		ctx.fillStyle = "brown";
+		ctx.fillStyle = "blue";
 		ctx.fillRect(520, 330, 200, 200); // ตัวบ้าน
 		ctx.strokeStyle = "white";
 		ctx.lineWidth = 5;
 		ctx.strokeRect(520, 330, 200, 200);
 		ctx.closePath();
+		// หน้าต่าง
+        ctx.beginPath();
+        ctx.fillStyle = "red";
+        ctx.fillRect(650, 400, 40, 40); // หน้าต่าง (ตำแหน่งกลางบ้าน)
+       ctx.strokeStyle = "while";
+       ctx.lineWidth = 3;
+      ctx.strokeRect(650, 400, 40, 40); // ขอบหน้าต่าง
+
+       ctx.beginPath();
+
+            // เส้นแนวตั้ง (แบ่งครึ่งแนวตั้ง)
+        ctx.moveTo(670, 400); // จุดบนกลางหน้าต่าง
+         ctx.lineTo(670, 440); // ลากลงล่าง
+
+       // เส้นแนวนอน (แบ่งครึ่งแนวนอน)
+        ctx.moveTo(650, 420); // จุดซ้ายกลางหน้าต่าง
+       ctx.lineTo(690, 420); // ลากไปขวา
+
+      ctx.strokeStyle = "gray";
+      ctx.lineWidth = 2;
+        ctx.stroke();
+         ctx.closePath();
 
 		// หลังคา
 		ctx.beginPath();
@@ -78,12 +100,12 @@ function main(ev) {
 		ctx.strokeStyle = "white";
 		ctx.lineWidth = 5;
 		ctx.stroke();
-		ctx.fillStyle = "#8b4513";
+		ctx.fillStyle = "#41338bff";
 		ctx.fill();
 
 		// ประตู
 		ctx.beginPath();
-		ctx.fillStyle = "#8b4513";
+		ctx.fillStyle = "#41138bff";
 		ctx.fillRect(560, 430, 55, 100);
 		ctx.strokeStyle = "white";
 		ctx.lineWidth = 3;
@@ -92,7 +114,7 @@ function main(ev) {
 
 		// ลูกบิดประตู
 		ctx.beginPath();
-		ctx.fillStyle = "#fff175";
+		ctx.fillStyle = "#ff9575ff";
 		ctx.arc(600, 480, 5, 0, Math.PI * 2);
 		ctx.fill();
 		ctx.closePath();
@@ -110,23 +132,39 @@ function main(ev) {
 		ctx.stroke(); // ขอบพุ่มใบ
 		ctx.fill();
 		ctx.closePath();
+		// ต้นไม้ต้นที่ 2 ทางขวา
+       ctx.beginPath();
+      ctx.fillStyle = "saddlebrown";
+      ctx.fillRect(290, 360, 30, 140); // ลำต้นใหม่ที่เลื่อนไปทางขวา
+
+       ctx.fillStyle = "green";
+       // พุ่มใบ (เลื่อนตำแหน่งจากต้นแรก)
+       ctx.arc(305, 310, 60, 0, Math.PI * 2); // พุ่มบน
+       ctx.arc(350, 360, 50, 0, Math.PI * 2); // พุ่มขวา
+       ctx.arc(260, 360, 50, 0, Math.PI * 2); // พุ่มซ้าย
+
+        ctx.strokeStyle = "darkgreen";
+        ctx.lineWidth = 5;
+        ctx.stroke(); // ขอบพุ่มใบ
+       ctx.fill();
+       ctx.closePath();
 
 		// ดวงอาทิตย์
 		ctx.beginPath();
-		ctx.fillStyle = "yellow";
-		ctx.arc(700, 100, 50, 0, Math.PI * 2);
+		ctx.fillStyle = "#fa8500ff";
+		ctx.arc(400, 100, 50, 0, Math.PI * 2);
 		ctx.fill();
 		ctx.closePath();
 		//ขอบดวงอาทิตย์
 		ctx.save(); // เก็บสถานะการวาดปัจจุบัน (พิกัด, การหมุน, สี ฯลฯ)
-		ctx.translate(700, 100); // ย้ายจุดอ้างอิง (origin) ไปที่ จุดกึ่งกลางของดวงอาทิตย์
+		ctx.translate(400, 100); // ย้ายจุดอ้างอิง (origin) ไปที่ จุดกึ่งกลางของดวงอาทิตย์
 		ctx.rotate(sunAngle); // หมุนระบบพิกัดทั้งหมดด้วยมุม sunAngle (ค่าที่เปลี่ยนแปลงไปเรื่อย ๆ เพื่อให้เกิดการหมุน)
 		for (let i = 0; i < 12; i++) {
 			ctx.rotate(Math.PI / 5); // หมุนเพิ่ม 30 องศา
 			ctx.beginPath();
 			ctx.moveTo(60, 0);
 			ctx.lineTo(80, 0);
-			ctx.strokeStyle = "#eeff00ff";
+			ctx.strokeStyle = "#ff3300ff";
 			ctx.lineWidth = 5;
 			ctx.stroke();
 		}
@@ -161,19 +199,24 @@ function main(ev) {
 		ctx.closePath();
 		ctx.restore();
 
-		// แปลงผัก
+		// แปลงผักใหม่
+        ctx.beginPath();
+        ctx.fillStyle = "#8B4513"; // สีดินน้ำตาลเข้มขึ้น
+        ctx.fillRect(350, 500, 120, 120); // พื้นแปลงผักใหญ่ขึ้น
+        ctx.strokeStyle = "black";
+
+       // วาดผักเป็นวงกลมสีเขียวเข้ม
+        ctx.fillStyle = "#228B22"; // สีเขียวเข้มของผัก
+        for (let i = 0; i < 4; i++) {
+	    for (let j = 0; j < 4; j++) {
+		let x = 365 + i * 25;
+		let y = 515 + j * 25;
 		ctx.beginPath();
-		ctx.fillStyle = "#ff702eff"; // สีน้ำตาลดิน
-		ctx.fillRect(350, 500, 100, 100); // พื้นแปลงผัก
-		ctx.strokeStyle = "black";
-		ctx.fillStyle = "#1bff2eff"; // สีผัก	
-		for (let i = 0; i < 5; i++) {
-			for (let j = 0; j < 5; j++) {
-				ctx.fillRect(360 + i * 18, 510 + j * 18, 10, 10); // วาดผักเป็นสี่เหลี่ยมเล็กๆ
-			}
-		}
+		ctx.arc(x, y, 6, 0, Math.PI * 2); // วาดวงกลมผัก
+		ctx.fill();
 		ctx.closePath();
-		
+	}
+}
 		// แสดงข้อความ FPS บน canvas ถ้า config.debug เป็น true
 		if (config.debug) FPS.show(ctx, 10, 28);
 		
